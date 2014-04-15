@@ -105,11 +105,13 @@ python 3
 * `str` in python2 was a byte string
 * **`str` is now a unicode string**
 * if you want a byte string use `b'Hello'`
+
 ```python
 >>> type(b'Hello')
 <class 'bytes'>
 ```
 * Python 3 won't do implicit conversation
+
 ```python
 >>> 'Hello' + b' world'
 TypeError
@@ -122,3 +124,26 @@ False
 KeyError
 ```
 * now you have to deal explicitly with both utf-8 and ascii
+
+### files
+```python
+>>> open('hello.txt', 'r').read()
+'Hello world\n'
+>>> open('hello.txt', 'rb').read() # opens in binary mode
+b'Hello world\n'
+```
+* but **I/O is always bytes** -> in the first line python encodes the byte string
+* so better set the right encoding of the file (on windows default is Windows-1252 not utf-8)
+```python
+>>> open('hi_utf8.txt', 'r', encoding='utf-8').read()
+```
+* (maybe) pitfall: stdin/out/err are **preopened** files with the set encoding depending on how your programm is running
+
+### tips
+1. unicode sandwich
+ * use unicode on the inside
+ * decode/encode on the boundaries (bytes outside)
+2. know what you have
+ * bytes or unicode
+ * if byte string you **need** to know the encoding
+  * you cannot infer whats the encoding
