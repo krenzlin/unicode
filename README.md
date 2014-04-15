@@ -156,6 +156,6 @@ b'Hello world\n'
 * has normalize function
  * ä into a and dots
 ```python
-print '%r' % unicodedata.normalize('NFD', u'\u00C7') # is a C with cedille
+>>> print '%r' % unicodedata.normalize('NFD', u'\u00C7') # is a C with cedille
 u'C\u0327'
 ```
