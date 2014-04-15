@@ -99,3 +99,26 @@ UnicodeDecodeError: 'ascii' codec can't decode ....
 ```
 * python knows encode is for unicode -> tries to decode the utf-8 byte string to unicode using the default ascii codec
  * this fails
+
+python 3
+----
+* `str` in python2 was a byte string
+* **`str` is now a unicode string**
+* if you want a byte string use `b'Hello'`
+```python
+>>> type(b'Hello')
+<class 'bytes'>
+```
+* Python 3 won't do implicit conversation
+```python
+>>> 'Hello' + b' world'
+TypeError
+
+>>> 'Hello' == b'Hello'
+False
+
+>>> d = {'Hello': 'world'}
+>>> d[b'Hello']
+KeyError
+```
+* now you have to deal explicitly with both utf-8 and ascii
