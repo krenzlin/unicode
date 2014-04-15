@@ -139,7 +139,8 @@ b'Hello world\n'
 ```
 * utf-8 can start with a BOM (byte order mark) which can give an error cause its not a valid character
  * use `utf-8-sig` as encoding (meaning: don't complain about a BOM)
-* (maybe) pitfall: stdin/out/err are **preopened** files with the set encoding depending on how your programm is running
+* pitfall: stdin/out/err are **preopened** files with the set encoding depending on how your programm is running
+ * could work when piping into a file but breaks when piping into less
 
 ### tips
 1. unicode sandwich
@@ -149,3 +150,12 @@ b'Hello world\n'
  * bytes or unicode
  * if byte string you **need** to know the encoding
   * you cannot infer whats the encoding
+
+### get infos on unicode
+* `unicodedata` https://docs.python.org/2/library/unicodedata.html
+* has normalize function
+ * ä into a and dots
+```python
+print '%r' % unicodedata.normalize('NFD', u'\u00C7') # is a C with cedille
+u'C\u0327'
+```
