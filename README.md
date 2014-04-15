@@ -137,6 +137,8 @@ b'Hello world\n'
 ```python
 >>> open('hi_utf8.txt', 'r', encoding='utf-8').read()
 ```
+* utf-8 can start with a BOM (byte order mark) which can give an error cause its not a valid character
+ * use `utf-8-sig` as encoding (meaning: don't complain about a BOM)
 * (maybe) pitfall: stdin/out/err are **preopened** files with the set encoding depending on how your programm is running
 
 ### tips
