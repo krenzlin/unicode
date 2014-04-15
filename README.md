@@ -57,4 +57,45 @@ python 2
 >>> my_byte_string.decode('utf-8')
 ```
 
+### error
+```python
+>>> my_unicode.encode('ascii')
+UnicodeEncodeError
+```
+* also not every byte sequence is valid in utf-8
 
+### error handling
+* `.encode('ascii', 'replace')`
+ * replace with ?
+* `.encode('ascii', 'xmlcharrefreplace')`
+ * replace with the html/xml character reference
+* `.encode('ascii', 'ignore')`
+
+
+### implicit conversation
+```python
+>>> u"Hello" + " world"
+u"Hello world"
+```
+* decodes byte strings 
+```python
+>>> u"Hello" + " world".decode('ascii')
+u"Hello world"
+```
+* like int to float
+
+* `sys.getdefaultencoding() == 'ascii'`
+* thats why `u'Hello' + my_utf8`
+ * `UnicodeDecodeError`
+ * tries to decode utf-8 as ascii
+
+**works great when everything is ASCII**
+
+* one really odd problem
+ * remember: encode is for unicode strings
+```python
+>>> my_utf8.encode('utf-8')
+UnicodeDecodeError: 'ascii' codec can't decode ....
+```
+* python knows encode is for unicode -> tries to decode the utf-8 byte string to unicode using the default ascii codec
+ * this fails
